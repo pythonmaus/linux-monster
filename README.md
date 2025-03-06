@@ -3,8 +3,8 @@
 ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/harkerbyte/linux-monster?style=plastic&logo=Github)
 
 
-### Most recent updates 
-*28-02-2025 - Bruteforce methods have now been optimised for less resource consumption. 
+### Updates 
+* 28-02-2025 - Bruteforce methods have now been optimised for less resource consumption. 
 
 ### Disclaimer 
 <b>I disclaim responsibility of how this tool is used, users are responsible for ensuring compliance with legal and ethical guidelines. Proceed responsibly.</b>
