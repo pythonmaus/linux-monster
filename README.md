@@ -4,7 +4,7 @@
 
 
 ### Most recent updates
-* 28-02-2025 - Bruteforce methods have now been optimised for less resource consumption. 
+* 28-02-2025 - Brute has now been optimised for less resource consumption. 
 
 ### Disclaimer 
 <b>I disclaim responsibility of how this tool is used, users are responsible for ensuring compliance with legal and ethical guidelines. Proceed responsibly.</b>
