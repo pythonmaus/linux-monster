@@ -16,7 +16,7 @@ Got a few more tricks in its arsenal, you should go find out.
 
 The codes are dynamic, ensuring the software's capability to receive updates in the future as development proceeds. 
 
-<a href="https://github.com/harkerbyte/linux-monster#challenge">Community Goal 🗿</a>
+<a href="https://youtube.com/@harkerbyte?si=bueGE1-JUuVj2uNW">Community Goal 🗿</a>
 ### Setup
 Get the app from <a title="F-droid termux" href="https://f-droid.org/en/packages/com.termux/" >F-droid</a>
 
@@ -107,64 +107,3 @@ Get the app from <a title="F-droid termux" href="https://f-droid.org/en/packages
 
 <p><b>Update</b> : Run this from time to time, to make sure your copy is up to date. </p>
 </div>
-
-
-
-<table id="challenge" >
-  <caption>Community Goal </caption>
-  <tr>
-    <th>
-      Target
-    </th>
-    <th>
-      Benefit
-    </th>
-    <th>
-      Achieved
-    </th>
-  </tr>
-  <tr>
-    <td>
-      <b>YouTube reaches 500 subscribers</b>
-    </td>
-    <td>
-      The tool gets a custom password generator
-    </td>
-    <td>
-      💤
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <b>YouTube reaches 3k subscribers</b>
-    </td>
-    <td>
-      Double or even triple the game : brute becomes 3× faster
-    </td>
-    <td>
-      💤
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <b>YouTube reaches 5k subscribers</b>
-    </td>
-    <td>
-      Hosting a proxy server on cloud, to supply users with premium proxies. Cost - free 
-    </td>
-    <td>
-      💤
-    </td>
-  </tr>
-  <tr>
-    <td>
-      💤
-    </td>
-    <td>
-       💤
-    </td>
-    <td>
-      💤
-    </td>
-  </tr>
-</table>
