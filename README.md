@@ -1,5 +1,6 @@
 
 ![GitHub Repo stars](https://img.shields.io/github/stars/harkerbyte/linux-monster?style=plastic&logo=Github)
+![GitHub forks](https://img.shields.io/github/forks/harkerbyte/linux-monster?style=plastic)
 ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/harkerbyte/linux-monster?style=plastic&logo=Github)
 
 
