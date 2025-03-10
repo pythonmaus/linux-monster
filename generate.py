@@ -31,14 +31,6 @@ class generate:
           pass
         else:    
           data_str.append(data)
-      elif isinstance(data, dict):
-        for value in data.values():
-          if isinstance(value, str) and value.strip():
-            data_str.append(value.strip())
-          elif isinstance(value, int) and value.strip():
-            data_int.append(value)
-          
-          pass
     
     return data_str, data_int 
   
