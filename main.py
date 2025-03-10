@@ -17,6 +17,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from bs4 import BeautifulSoup as beautifulsoup
+from generate import take_keywords
 
 black = "\033[2;30m"
 red = "\033[1;31m"
@@ -41,7 +42,7 @@ else:
       "proxy": False,
       "username": "",
       "email address": "",
-      "password path": "data/passwords.txt"
+      "password path": "password/passwords.txt"
     }
     json.dump(format_, new_setting, indent = 4)
     new_setting.close()
@@ -132,7 +133,7 @@ def open_settings(modify):
           try:
             pass_holder = f"""
             Current password file : {init_password_path.strip().split('/')[1]}
-            Your new password file must be located in data folder
+            Your new password file must be located in password folder
             """
             print(f'{blue}{textwrap.dedent(pass_holder)} {plain}')
           except IndexError:
@@ -144,16 +145,16 @@ def open_settings(modify):
               new_path = input('New password file name [File_name.txt] : ').strip()
               file, ext =  os.path.splitext(new_path)
               if ext == '.txt':
-                if not os.path.exists(f'data/{new_path}'):
+                if not os.path.exists(f'password/{new_path}'):
                   print(f'{red}{new_path} not found{plain}')
                 else:
-                  with open(f'data/{new_path}', 'r') as content:
+                  with open(f'password/{new_path}', 'r') as content:
                     cont_ = [line.strip() for line in content.readlines() if line.strip()]
                     if len(cont_) == 0:
                       print(f'{red}{new_path} is an empty document, try again{plain}')
                     else:
                       content.close()
-                      init_password_path = f"data/{new_path}"
+                      init_password_path = f"password/{new_path}"
                       changing = False
               else:
                 print(f'{red}Provide a valid .txt document {plain}')
@@ -227,7 +228,7 @@ def onload_proxy(data = None, pop = None):
 def onload_file(value):
   new_value = value.strip().strip('"')
   if not os.path.exists(new_value):
-    return None
+    return 'password/passwords.txt'
   else:
     return f'{new_value}'
   
@@ -650,7 +651,8 @@ def main():
       
     elif command.lower() in ['setting', 'settings']:
       open_settings(modify = True)
-    
+    elif command.lower().strip() == 'password':
+      take_keywords()
     elif command.lower().strip() == 'help':
       subprocess.run(['xdg-open', 'https://github.com/harkerbyte/linux-monster#support'])
       
@@ -659,6 +661,7 @@ def main():
 
       
     elif command.lower() == 'exit':
+      print(f'{green}See yah later👋{plain}')
       command = False
       break
     
