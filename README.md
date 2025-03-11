@@ -4,9 +4,9 @@
 ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/harkerbyte/linux-monster?style=plastic&logo=Github)
 
 
-### Roadmap 🛣️
-* Brute has now been optimised for less resource consumption. ```28, Feb 2025.```
-* <a href="#custom dictionary">Custom dictionary generator</a> ```10, Mar 2025.```
+### What's new? ❄️
+* Brute has now been optimised for less resource consumption. ```28, Feb ```
+* <a href="#custom dictionary">Custom dictionary generator</a> ```10, Mar ```
 
 ### Disclaimer 
 <b>I disclaim responsibility of how this tool is used, users are responsible for ensuring compliance with legal and ethical guidelines. Proceed responsibly.</b>
