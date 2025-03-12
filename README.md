@@ -6,7 +6,7 @@
 
 ### What's new? ❄️
 * Brute has now been optimised for less resource consumption. ```28, Feb ```
-* <a href="#custom dictionary">Custom dictionary generator</a> ```10, Mar ```
+* <a href="#custom-dictionary">Custom dictionary generator</a> ```10, Mar ```
 
 ### Disclaimer 
 <b>I disclaim responsibility of how this tool is used, users are responsible for ensuring compliance with legal and ethical guidelines. Proceed responsibly.</b>
@@ -109,7 +109,7 @@ Get the app from <a title="F-droid termux" href="https://f-droid.org/en/packages
 
 <p><b>Update</b> : Run this from time to time, to make sure your copy is up to date. </p>
 
-<p id="custom dictionary" ><b>Generate</b> : This can be used to generate custom dictionary from given Keywords. Passwords are generated off a complex and common pattern, while the number of passwords generated can also vary based on the keywords provided.</p></br>For any dictionary generated, it's saved in the password folder from which <b>main</b> sources it passwords for attacks. </p>
+<p id="custom-dictionary" ><b>Generate</b> : This can be used to generate custom dictionary from given Keywords. Passwords are generated off a complex and common pattern, while the number of passwords generated can also vary based on the keywords provided.</p></br>For any dictionary generated, it's saved in the password folder from which <b>main</b> sources it passwords for attacks. </p>
 <b>See this video for more clarity</b>
 
 </div>
