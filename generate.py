@@ -97,7 +97,7 @@ def take_keywords():
       keywords_collected.add(value)
       i += 1
     elif value == 'help':
-      subprocess.run(['xdg-open','https://github.com/harkerbyte'])
+      subprocess.run(['xdg-open','https://youtu.be/ewQfgRUeGU4?si=alPRccErnA-hwwjz'])
     elif value == 'exit':
       sys.exit()
     else:
