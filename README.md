@@ -4,6 +4,11 @@
 ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/harkerbyte/linux-monster?style=plastic&logo=Github)
 
 
+<a href = "https://facebook.com/harkerbyte" id="socials" >![Facebook](https://img.shields.io/badge/Facebook-%231877F2.svg?style=plastic&logo=Facebook&logoColor=white)</a>
+<a href ="https://youtube.com/@harkerbyte?si=aPSIREosLJlFOmyX" >![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=plastic&logo=YouTube&logoColor=white)</a>
+<a href="https://whatsapp.com/channel/0029Vb5f98Z90x2p6S1rhT0S">![WhatsApp](https://img.shields.io/badge/WhatsApp-25D366?style=plastic&logo=whatsapp&logoColor=white)</a>
+
+
 ### What's new? ❄️
 * Brute has now been optimised for less resource consumption. ```28, Feb ```
 * <a href="#custom-dictionary">Custom dictionary generator</a> ```10, Mar ```
@@ -41,15 +46,6 @@ Get the app from <a title="F-droid termux" href="https://f-droid.org/en/packages
 
 [![SETUP TUTORIAL YT](https://github.com/harkerbyte/linux-monster/blob/06f6a0867368aa5b0ec853f38253da9409e1399a/data/IMG_20250302_182932.png)](https://www.youtube.com/watch?v=cc9UuUCDr4E&feature=youtu.be)
 <b>Full YouTube tutorial on how to setup Linux-Monster</b>
-
-
-<div id="socials" ><h3>Reach out</h3> 
-</div>
-
-
-<a href = "https://facebook.com/harkerbyte">![Facebook](https://img.shields.io/badge/Facebook-%231877F2.svg?style=plastic&logo=Facebook&logoColor=white)</a>
-<a href ="https://youtube.com/@harkerbyte?si=aPSIREosLJlFOmyX" >![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=plastic&logo=YouTube&logoColor=white)</a>
-<a href="https://whatsapp.com/channel/0029Vb5f98Z90x2p6S1rhT0S">![WhatsApp](https://img.shields.io/badge/WhatsApp-25D366?style=plastic&logo=whatsapp&logoColor=white)</a>
 
 
 <div id="support" >
