@@ -3,19 +3,42 @@
 ![GitHub forks](https://img.shields.io/github/forks/harkerbyte/linux-monster?style=plastic)
 ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/harkerbyte/linux-monster?style=plastic&logo=Github)
 
+<table>
+  <tr>
+    <th>As of</th>
+    <th>What's new ❄️</th>
+    <th>Changes 💬</th>
+  </tr>
+  <tr>
+    <td>28, Feb.</td>
+    <td>Brute was optimized for less resource consumption </td>
+  </tr>
+  <tr>
+    <td>11, March.</td>
+    <td>You can now create custom password dictionary with just keywords. <a href="https://youtu.be/ewQfgRUeGU4?si=alPRccErnA-hwwjz" >Video</a></td>
+  </tr>
+  <tr>
+    <td>19, March.</td>
+    <td>
+  📜Fixed known issues</br>
+  📜Main menu ui/ux 📊.</br>
+  📜Enter keyword <b>clear</b> from main menu to clean redundant histories.</br>
+  📜Brute now tracks progress, making sure you can always resume from where you last stopped during bruteforce.</br>
+  📜A new pattern has been added to the custom dictionary generator 📈.</td>
+  <td>
+    <mark>generate.py</mark> is no longer isolated. Enter keyword password from <b>main</b> to write custom dictionary 🧨</br>
+  However, the path in which the dictionaries are written/saved remains <b>unchanged</b>.
+  </td>
+  </tr>
+</table>
 
-### What's new? ❄️
-* Brute has now been optimised for less resource consumption. ```28, Feb ```
-* <a href="#custom-dictionary">Custom dictionary generator</a> ```10, Mar ```
 
+### Disclaimer 
 <a href = "https://facebook.com/harkerbyte" id="socials" >![Facebook](https://img.shields.io/badge/Facebook-%231877F2.svg?style=flat&logo=Facebook&logoColor=white)</a>
 <a href ="https://youtube.com/@harkerbyte?si=aPSIREosLJlFOmyX" >![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=flat&logo=YouTube&logoColor=white)</a>
 <a href="https://whatsapp.com/channel/0029Vb5f98Z90x2p6S1rhT0S">![WhatsApp](https://img.shields.io/badge/WhatsApp-25D366?style=flat&logo=whatsapp&logoColor=white)</a>
 <a href="https://instagram.com/harkerbyte" >
-![Instagram](https://img.shields.io/badge/Instagram-E4405F?style=flat&amp;logo=instagram&amp;logoColor=white) </a>
-
-
-### Disclaimer 
+![Instagram](https://img.shields.io/badge/Instagram-E4405F?style=flat&amp;logo=instagram&amp;logoColor=white) </a></br>
 <b>I disclaim responsibility of how this tool is used, users are responsible for ensuring compliance with legal and ethical guidelines. Proceed responsibly.</b>
 
 ![1000076397](https://github.com/user-attachments/assets/fbef241d-73b5-4de7-bbc8-ca678e12aa38)
@@ -108,7 +131,7 @@ Get the app from <a title="F-droid termux" href="https://f-droid.org/en/packages
 
 <p><b>Update</b> : Run this from time to time, to make sure your copy is up to date. </p>
 
-<p id="custom-dictionary" ><b>Generate</b> : This can be used to generate custom dictionary from given Keywords. Passwords are generated off a complex and common pattern, while the number of passwords generated can also vary based on the keywords provided.</p></br>For any dictionary generated, it's saved in the password folder from which <b>main</b> sources it passwords for attacks. </p>
+</br>For any dictionary generated, it's saved in the password folder from which <b>main</b> sources it passwords for attacks. </p>
 <b>See this <a href="https://youtu.be/ewQfgRUeGU4?si=alPRccErnA-hwwjz" >video</a> for more clarity</b>
 
 </div>
