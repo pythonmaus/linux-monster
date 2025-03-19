@@ -103,8 +103,10 @@ def take_keywords():
     else:
       if not len(keywords_collected) <= 0:
         file = input(f'\n{purple}Name the dictionary : {plain}').strip()
-        if os.path.splitext(file) != '.txt':
-          file = f'{file}.txt'
+        if '.' in file:
+          file,ext = file.split('.')
+        
+        file = f'{file}.txt'
         
         if not os.path.exists(f'password/{file}'):
           collect_passwords = set()
@@ -122,7 +124,7 @@ def take_keywords():
             save_to.write(f'{data}\n')
           
           print(f'{green}Dictionary saved >>> password/{file}{plain}')
-          sys.exit()
+          break
         
         sys.stderr.write(f'{red}{file} already exists{plain}')
         sys.exit()
