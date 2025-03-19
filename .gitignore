@@ -1,4 +1,6 @@
 *.log
 data/*.png
-README.md
-__pycache__
+__pycache__/
+data/temps.txt
+data/facebook.json
+data/google.json
