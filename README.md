@@ -34,9 +34,10 @@
   <tr>
     <td>20, March. </td>
     <td>
-      📜Improved ui </br>
+      📜Improved ui feel </br>
       📜Brute accuracy and error handling tweaked</br>
-      📜Memory's reported issue fixed : <b>ValueError</b>. 
+      📜Memory issue fixed : <b>ValueError.</br>
+      📜Setting is now made dynamic, eliminating the necessity of restarting the software to apply the changes made. 
     </td>
   </tr>
 </table>
