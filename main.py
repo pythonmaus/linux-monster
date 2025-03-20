@@ -363,8 +363,8 @@ def main():
                 del_mem.terminate_()
                 break
               else:
-                pass
-           
+                print(f'{yellow}Await response timeout - try the password tho{plain}')
+                
               
             except Exception:
               track = traceback.format_exc()
@@ -457,7 +457,7 @@ def main():
                     del_mem.terminate_()
                   else:
                     logging.critical(sel_timer)
-                    print(f'{red}Await response timeout{plain}')
+                    print(f'{yellow}Await response timeout - try the password tho{plain}')
                     driver.quit()
                     pass
                     
