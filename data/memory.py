@@ -71,9 +71,10 @@ class memory:
           print(f'Resuming from where we last stopped ✅')
           re = open(self.dict_path, 'r')
           index = [line.strip() for line in re.readlines() if line.strip()]
-            
-          return index.index(prev_index)
-          
+          try: 
+            return index.index(prev_index)
+          except ValueError:
+            return None
         return None
       except KeyError:
         return None
