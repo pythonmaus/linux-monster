@@ -21,14 +21,22 @@
     <td>19, March.</td>
     <td>
   📜Fixed known issues</br>
-  📜Main menu ui/ux 📊.</br>
+  📜Main menu ui/ux.</br>
   📜Enter keyword <b>clear</b> from main menu to clean redundant histories.</br>
   📜Brute now tracks progress, making sure you can always resume from where you last stopped during bruteforce.</br>
-  📜A new pattern has been added to the custom dictionary generator 📈.</td>
+  📜A new pattern has been added to the custom dictionary generator.</td>
   <td>
     <mark>generate.py</mark> is no longer isolated. Enter keyword password from <b>main</b> to write custom dictionary 🧨</br>
   However, the path in which the dictionaries are written/saved remains <b>unchanged</b>.
   </td>
+  </tr>
+  <tr>
+    <td>20, March. </td>
+    <td>
+      📜Improved ui </br>
+      📜Brute accuracy and error handling tweaked</br>
+      📜Memory's reported issue fixed : <b>ValueError</b>. 
+    </td>
   </tr>
 </table>
 
