@@ -7,7 +7,7 @@
 <table>
   <tr>
     <th>As of</th>
-    <th>What's new ❄️</th>
+    <th>Upgrade ❄️</th>
     <th>Changes 💬</th>
   </tr>
   <tr>
@@ -36,8 +36,8 @@
     <td>
       📜Improved ui feel </br>
       📜Brute accuracy and error handling tweaked</br>
-      📜Memory issue fixed : <b>ValueError.</br>
-      📜Setting is now made dynamic, eliminating the necessity of restarting the software to apply the changes made. 
+      📜Memory issue fixed : <b>ValueError.</br>     
+      📜<mark>Setting</mark>is now made dynamic, eliminating the necessity of restarting the software to apply the changes made. 
     </td>
   </tr>
 </table>
