@@ -71,9 +71,10 @@ class memory:
           re = open(self.dict_path, 'r')
           index = [line.strip() for line in re.readlines() if line.strip()]
           try: 
-            print(f'Resuming from where we last stopped ✅')
+            print('Resuming from where we last stopped ✅')
             return index.index(prev_index)
           except ValueError:
+            print('Failed to do so : password file doesn\'t match') 
             return None
         return None
       except KeyError:
