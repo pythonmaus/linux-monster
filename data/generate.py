@@ -127,7 +127,7 @@ def take_keywords():
           break
         
         sys.stderr.write(f'{red}{file} already exists{plain}')
-        sys.exit()
+        break
         
 if __name__ == '__main__':
   take_keywords()
