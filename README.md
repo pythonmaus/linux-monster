@@ -37,7 +37,7 @@
       📜Improved ui feel </br>
       📜Brute accuracy and error handling tweaked</br>
       📜Memory issue fixed : <b>ValueError</b>.</br>     
-      📜<mark>Setting</mark>is now made dynamic, eliminating the necessity of restarting the software to apply the changes made. 
+      📜Setting is now made dynamic, eliminating the necessity of restarting the software to apply the changes made. 
     </td>
   </tr>
 </table>
