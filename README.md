@@ -53,7 +53,8 @@
 ![X (formerly Twitter) Follow](https://img.shields.io/twitter/follow/shade_ofx?style=plastic&logo=X&label=%20&color=blue)</a></br>
 <b>I disclaim responsibility of how this tool is used, users are responsible for ensuring compliance with legal and ethical guidelines. Proceed responsibly.</b>
 
-![1000076397](https://github.com/user-attachments/assets/fbef241d-73b5-4de7-bbc8-ca678e12aa38)
+![1000015654](https://github.com/user-attachments/assets/1551359a-0761-4d17-88e1-5951d778c93f)
+
 ### linux-monster
 <b> Ethical Facebook and Gmail </b> password brute force beast... With proxy rotation for every attack based on user preference setup, you can also add your custom password list. 
 Got a few more tricks in its arsenal, you should go find out. 
