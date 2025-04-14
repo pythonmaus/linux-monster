@@ -40,6 +40,15 @@
       📜Setting is now made dynamic, eliminating the necessity of restarting the software to apply the changes made. 
     </td>
   </tr>
+  <tr>
+    <td>
+      14, April
+    </td>
+    <td>
+      📜You can now enter <b>CTRL-C</b> to close brute force sessions without necessarily terminating the whole script.<br>
+      Took me long enough 🗿
+    </td>
+  </tr>
 </table>
 
 
