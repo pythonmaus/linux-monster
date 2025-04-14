@@ -45,7 +45,7 @@ else:
       "email address": "",
       "password path": "password/passwords.txt"
     }
-    json.dump(format_, new_setting, indent = 4)
+    json.dump(format_, new_setting, indent = 2)
     new_setting.close()
     print(f'{blue}New setting configured... Kindly restart the program{plain}')
     sys.exit()
@@ -370,6 +370,10 @@ def main():
               track = traceback.format_exc()
               proxy_errorV(errorLogged = track, terminate = caught_proxy)
               driver.quit()
+            except KeyboardInterrupt:
+              driver.quit()
+              print(f'{red}Session terminated{plain}')
+              break
             
             driver.quit()
             i += 1
@@ -472,6 +476,10 @@ def main():
               track = traceback.format_exc()
               proxy_errorV(errorLogged = track, terminate = caught_proxy)
               driver.quit()
+              break
+            except KeyboardInterrupt:
+              driver.quit()
+              print(f'{red}Session terminated{plain}')
               break
             
             driver.quit()
