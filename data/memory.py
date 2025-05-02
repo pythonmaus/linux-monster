@@ -26,6 +26,7 @@ class memory:
         if len(file) != 0:
           return google_mem
        #incase google.json had been unknowingly emptied
+        init_ = open(facebook_mem, 'w')
         init_.write('{}')
         init_.close()
         return google_mem
